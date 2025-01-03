@@ -7,13 +7,14 @@ describe('MovieController', () => {
   let controller: MovieController;
   let movieService: MovieService;
 
-  beforeEach(async () => {
+  beforeEach(async () => {  
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MovieController],
-    }).compile();
-
+      providers: [{ provide: MovieService, useValue: {} }],
+      controllers: [MovieController],  })
+    .compile();
     controller = module.get<MovieController>(MovieController);
-  });
+    movieService = module.get(MovieService);
+  }); 
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
@@ -31,5 +32,19 @@ describe('MovieController', () => {
     expect(response).toBeDefined();
     expect(movieService.getOldness).toHaveBeenCalledWith('fakeMovie');
     expect(response).toEqual('old');
+  });
+
+  it('given a movie name, return if movie is profitable', () => {
+    // given
+    const movieName = 'fakeMovie';
+    movieService.getProfitability = vi.fn().mockImplementationOnce(() => true);
+
+    // when
+    const response = controller.getProfitablity(movieName);
+
+    //then
+    expect(response).toBeDefined();
+    expect(movieService.getProfitability).toHaveBeenCalledWith('fakeMovie');
+    expect(response).toEqual(true);
   });
 });

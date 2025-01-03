@@ -98,4 +98,54 @@ describe('MovieService', () => {
     expect(gateway.getMovie).toHaveBeenCalledWith('fake');
     expect(response.oldness).toEqual('90s');
   });
+
+  it('should call the gateway to get movie', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        money: { made: 10, budget: 11 },
+      }
+    }));
+
+    // when
+    await service.getProfitability(movieName);
+
+    // then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+  });
+
+  it('should return true when budget is less than made', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        money: { made: 10, budget: 9 },
+      }
+    }));
+
+    // when
+    const response = await service.getProfitability(movieName);
+
+    // then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.profitable).toEqual(true);
+  });
+
+  it('should return false when budget is more than made', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        money: { made: 10, budget: 11 },
+      }
+    }));
+
+    // when
+    const response = await service.getProfitability(movieName);
+
+    // then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.profitable).toEqual(false);
+  });
 });

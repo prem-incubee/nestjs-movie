@@ -45,3 +45,43 @@ describe('movie aggregator', () => {
     expect(reseponse.body.oldness).toBe('90s');
   });
 });
+
+describe('movie aggregator for profitability', () => {
+  let app: INestApplication;
+
+  beforeAll(async () => {
+    await mock.start(3001);
+  });
+  beforeEach(async () => {
+    mock.addInteraction({
+      request: { method: 'GET', path: '/movies/batman' },
+      response: {
+        status: 200,
+        body: {
+          data: {
+            money: {made: 10, budget: 9}
+          },
+        },
+      },
+    });
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+  afterAll(async () => {
+    await mock.stop();
+  });
+
+  it('given a movie name, gives result about movie profitability', async () => {
+    const movieName = 'batman';
+    const reseponse = await request(app.getHttpServer()).get(
+      `/movies/${movieName}/profitable`,
+    );
+    expect(reseponse.status).toBe(200);
+    expect(reseponse.body).toBeDefined();
+    expect(reseponse.body.profitable).toBe(true);
+  });
+});

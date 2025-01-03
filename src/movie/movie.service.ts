@@ -17,6 +17,11 @@ export class MovieService {
     return { oldness: 'new' };
   }
 
+  async getProfitability(movieName: string) {
+    let movie = await this.gateway.getMovie(movieName);
+    return { profitable: movie.data.money.budget < movie.data.money.made };
+  }
+
   private parse(movie) {
     const date = parseISO(movie.data.meta.releasedOn);
     return date;

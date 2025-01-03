@@ -11,3 +11,10 @@ GET http://localhost:3000/movies/batman/oldness
 #90s: 90 to 2000
 #new: 2000 to now
 #}
+
+GET http://localhost:3000/movies/batman/profitable
+
+#{
+  #profitable: true
+  #profitable: false
+#}
