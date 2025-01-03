@@ -82,6 +82,6 @@ describe('movie aggregator for profitability', () => {
     );
     expect(reseponse.status).toBe(200);
     expect(reseponse.body).toBeDefined();
-    expect(reseponse.body.profitable).toBe(true);
+    expect(reseponse.body.profitable).toBe("PROFITABLE");
   });
 });

@@ -115,7 +115,7 @@ describe('MovieService', () => {
     expect(gateway.getMovie).toHaveBeenCalledWith('fake');
   });
 
-  it('should return true when budget is less than made', async () => {
+  it('should return PROFITABLE when budget is less than made', async () => {
     // given
     const movieName = 'fake';
     gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
@@ -129,10 +129,10 @@ describe('MovieService', () => {
 
     // then
     expect(gateway.getMovie).toHaveBeenCalledWith('fake');
-    expect(response.profitable).toEqual(true);
+    expect(response.profitable).toEqual("PROFITABLE");
   });
 
-  it('should return false when budget is more than made', async () => {
+  it('should return NONPROFITABLE when budget is more than made', async () => {
     // given
     const movieName = 'fake';
     gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
@@ -146,6 +146,23 @@ describe('MovieService', () => {
 
     // then
     expect(gateway.getMovie).toHaveBeenCalledWith('fake');
-    expect(response.profitable).toEqual(false);
+    expect(response.profitable).toEqual("NONPROFITABLE");
+  });
+
+  it('should return BLOCKBUSTER difference between between made and budget is greater than 100', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        money: { made: 200, budget: 11 },
+      }
+    }));
+
+    // when
+    const response = await service.getProfitability(movieName);
+
+    // then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.profitable).toEqual("BLOCKBUSTER");
   });
 });

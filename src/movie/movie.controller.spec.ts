@@ -34,10 +34,10 @@ describe('MovieController', () => {
     expect(response).toEqual('old');
   });
 
-  it('given a movie name, return if movie is profitable', () => {
+  it('given a movie name, prompt with a profitability', () => {
     // given
     const movieName = 'fakeMovie';
-    movieService.getProfitability = vi.fn().mockImplementationOnce(() => true);
+    movieService.getProfitability = vi.fn().mockImplementationOnce(() => "PROFITABLE");
 
     // when
     const response = controller.getProfitablity(movieName);
@@ -45,6 +45,6 @@ describe('MovieController', () => {
     //then
     expect(response).toBeDefined();
     expect(movieService.getProfitability).toHaveBeenCalledWith('fakeMovie');
-    expect(response).toEqual(true);
+    expect(response).toEqual("PROFITABLE");
   });
 });

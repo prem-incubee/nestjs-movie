@@ -19,7 +19,16 @@ export class MovieService {
 
   async getProfitability(movieName: string) {
     let movie = await this.gateway.getMovie(movieName);
-    return { profitable: movie.data.money.budget < movie.data.money.made };
+    const profit = movie.data.money.made - movie.data.money.budget;
+    if(profit < 0) {
+      return { profitable: "NONPROFITABLE" };
+    }
+    
+    if(profit > 100) {
+      return { profitable: "BLOCKBUSTER" };
+    }
+
+    return { profitable: "PROFITABLE" };
   }
 
   private parse(movie) {

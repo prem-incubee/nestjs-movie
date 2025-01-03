@@ -15,6 +15,7 @@ GET http://localhost:3000/movies/batman/oldness
 GET http://localhost:3000/movies/batman/profitable
 
 #{
-  #profitable: true
-  #profitable: false
+  #profitable: PROFITABLE
+  #profitable: NONPROFITABLE
+  #profitable: BLOCKBUSTER
 #}
