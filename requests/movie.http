@@ -1,0 +1,13 @@
+### Just checking the integration
+GET http://localhost:3000/dune
+
+### oldness
+GET http://localhost:3000/movies/batman/oldness
+
+#{
+#oldness: old/new/90s
+#
+#old: anything before 90
+#90s: 90 to 2000
+#new: 2000 to now
+#}
