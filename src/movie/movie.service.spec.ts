@@ -130,5 +130,73 @@ describe('MovieService', () => {
     //then
     expect(gateway.getMovie).toHaveBeenCalledWith('fake');
     expect(response.rating).toBe(4);
+  }) 
+
+  it('should return 4.5 for 9 rating from gateway', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        rating: 9
+      }
+    }));
+
+    // when
+    const response = await service.getRating(movieName);
+
+    //then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.rating).toBe(4.5);
+  })
+
+  it('should return 4 for 7.6 rating from gateway', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        rating: 7.6
+      }
+    }));
+
+    // when
+    const response = await service.getRating(movieName);
+
+    //then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.rating).toBe(4);
+  })  
+
+  it('should return 3 for 5.5 rating from gateway', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        rating: 5.5
+      }
+    }));
+
+    // when
+    const response = await service.getRating(movieName);
+
+    //then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.rating).toBe(3);
+  })
+
+  it('should return 3.5 for 7.1 rating from gateway', async () => {
+    // given
+    const movieName = 'fake';
+    gateway.getMovie = vi.fn().mockImplementationOnce(() => Promise.resolve({
+      data: {
+        rating: 7.1
+      }
+    }));
+
+    // when
+    const response = await service.getRating(movieName);
+
+    //then
+    expect(gateway.getMovie).toHaveBeenCalledWith('fake');
+    expect(response.rating).toBe(3.5);
   })  
 });
