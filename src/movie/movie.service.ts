@@ -17,8 +17,9 @@ export class MovieService {
     return { oldness: 'new' };
   }
 
-  getRating(movieName: string) {
-    throw Error('not implemented');
+  async getRating(movieName: string) {
+    let movie = await this.gateway.getMovie(movieName);
+    return { rating: 4 };
   }
 
   private parse(movie) {
