@@ -44,4 +44,14 @@ describe('movie aggregator', () => {
     expect(reseponse.body).toBeDefined();
     expect(reseponse.body.oldness).toBe('90s');
   });
+
+  it.only('given a movie name, get the rating of the movie', async () => {
+    const movieName = 'batman';
+    const reseponse = await request(app.getHttpServer()).get(
+      `/movies/${movieName}/rating`,
+    );
+    expect(reseponse.status).toBe(200);
+    expect(reseponse.body).toBeDefined();
+    expect(reseponse.body.oldness).toBe('90s');
+  });
 });
