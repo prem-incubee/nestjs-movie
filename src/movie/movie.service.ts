@@ -17,6 +17,10 @@ export class MovieService {
     return { oldness: 'new' };
   }
 
+  getRating(movieName: string) {
+    throw Error('not implemented');
+  }
+
   private parse(movie) {
     const date = parseISO(movie.data.meta.releasedOn);
     return date;

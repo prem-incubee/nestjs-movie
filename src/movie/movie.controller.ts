@@ -9,4 +9,9 @@ export class MovieController {
   getOldness(@Param('movieName') movieName: string) {
     return this.movieService.getOldness(movieName);
   }
+
+  @Get('/:movieName/rating')
+  getRating(@Param('movieName') movieName: string) {
+    throw Error('not implemented');
+  }
 }
