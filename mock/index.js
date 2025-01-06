@@ -24,6 +24,7 @@ app.get('/movies/:name', (req, res) => {
       },
       cast: { director: faker.person.fullName() },
       money: { made: faker.finance.amount(), budget: faker.finance.amount() },
+      rating: faker.number.float({ min: 0, max: 10, precision: 0.1 })
     },
   });
 });

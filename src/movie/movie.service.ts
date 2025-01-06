@@ -20,6 +20,7 @@ export class MovieService {
   async getRating(movieName: string) {
     const movie = await this.gateway.getMovie(movieName);
     const scaledRating = Math.round(movie?.data?.rating) / 2;
+    console.log({scaledRating});
     return { rating: scaledRating };
   }
 
