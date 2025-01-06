@@ -12,6 +12,6 @@ export class MovieController {
 
   @Get('/:movieName/rating')
   getRating(@Param('movieName') movieName: string) {
-    throw Error('not implemented');
+    return this.movieService.getRating(movieName);
   }
 }
